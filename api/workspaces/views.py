@@ -24,7 +24,8 @@ class WorkspaceListView(APIView):
             profileSerializer = ProfileSerializer(
                 profile,
                 data = {
-                    'workspace_owner_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
+                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id],
+                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
                 },
                 partial=True
             )

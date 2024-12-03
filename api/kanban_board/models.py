@@ -3,15 +3,14 @@ from api.workspaces.models import Workspaces
 from api.profiles.models import Profile
 
 class Columns(models.Model):
-    workspace = models.ForeignKey(Workspaces, on_delete=models.CASCADE)
+    workspace_id = models.ForeignKey(Workspaces, on_delete=models.CASCADE)
     name = models.CharField(max_length=256)
     card_orders = models.JSONField(default=list, null=True, blank=True)
-
     def __str__(self):
         return self.name
 
 class Cards(models.Model):
-    column = models.ForeignKey(Columns, on_delete=models.CASCADE)
+    column_id = models.ForeignKey(Columns, on_delete=models.CASCADE)
     content = models.CharField(max_length=256)
     due_date = models.DateField(null=True, blank=True)
     assign = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)

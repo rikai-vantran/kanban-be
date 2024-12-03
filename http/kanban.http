@@ -1,0 +1,82 @@
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjE3MjA0LCJpYXQiOjE3MzMxOTkyMDQsImp0aSI6ImRlODI1N2RhMDE5NTRkZDFiMmI2MjIwNDU1YzVjZTNjIiwidXNlcl9pZCI6NX0.RtbTx1PZmDFQecW7kP9DwbxEiAlpfvB6KBG8fdeWAD4
+#Column --------------------------------------------------------------------
+
+## Add new Column
+POST http://localhost:8000/api/kanban_board/kanban_column/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "workspace_id": 8,
+    "name": "Donde"
+}
+###
+
+## Get all Columns
+GET http://localhost:8000/api/kanban_board/kanban_column/?workspace_id=9
+Authorization: Bearer {{token}}
+###
+
+## Update Column
+PUT http://localhost:8000/api/kanban_board/2/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Done updated"
+}
+###
+
+## Delete Column
+DELETE http://localhost:8000/api/kanban_board/5/
+Authorization: Bearer {{token}}
+
+
+Card --------------------------------------------------------------------
+
+## Add new Card
+
+###
+POST http://localhost:8000/api/kanban_board/kanban_card/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "column_id": 2,
+    "content" : "Card1",
+    "due_date": "2021-10-10",
+    "assign": 6
+}
+###
+
+## Get all Cards
+GET http://localhost:8000/api/kanban_board/kanban_card/?column_id=3
+Authorization: Bearer {{token}}
+###
+
+## Update Card
+
+PUT http://localhost:8000/api/kanban_board/kanban_card/2/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "content": "Card3 updated",
+    "due_date": "2021-10-10"
+}
+###
+
+## Delete Card
+DELETE http://localhost:8000/api/kanban_board/kanban_card/1/
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+
+
+

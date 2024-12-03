@@ -24,8 +24,7 @@ class WorkspaceListView(APIView):
             profileSerializer = ProfileSerializer(
                 profile,
                 data = {
-                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id],
-                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
+                    'workspace_owner_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
                 },
                 partial=True
             )
@@ -38,7 +37,7 @@ class WorkspaceListView(APIView):
                 "data": serializer.data
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def get(self, request):
         role = request.query_params.get('role')
         print(role)
@@ -53,7 +52,7 @@ class WorkspaceListView(APIView):
             return Response({"error": "Invalid role"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = GetAllWorkSpaceSerializer(workspaceMembers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 class WorkspaceDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -62,11 +61,11 @@ class WorkspaceDetailView(APIView):
         workspaceMembers = WorkspaceMembers.objects.filter(workspace=workspace_id)
         if not workspaceMembers.filter(role='owner', member__user=request.user).exists():
             return Response({"error": "You can't delete this workspace"}, status=status.HTTP_403_FORBIDDEN)
-        
+
         Workspaces.objects.get(id=workspace_id).delete()
         profile = Profile.objects.get(user=request.user)
-        profile.workspaces_set.remove(workspace_id)
-        profile.workspace_owner_orders.remove(workspace_id)
+        # profile.workspaces_set.remove(workspace_id)
+        # profile.workspace_owner_orders.remove(workspace_id)
         profile.save()
         return Response({"message": "Workspace deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
 
@@ -74,7 +73,7 @@ class WorkspaceDetailView(APIView):
     #     workspace = Workspaces.objects.get(id=workspace_id)
     #     serializer = AddWorkspaceSerializer(workspace)
     #     return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def put(self, request, workspace_id):
         workspace = Workspaces.objects.get(id=workspace_id)
         serializer = WorkspaceSerializer(workspace, data=request.data)

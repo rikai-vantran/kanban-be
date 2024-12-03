@@ -1,0 +1,41 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjEwMDc5LCJpYXQiOjE3MzMxOTIwNzksImp0aSI6IjhhYWE3MjhhMTRkNjQzYjdiMDAyZTZjYmVmMDkyNjAwIiwidXNlcl9pZCI6M30.iRPAi5jxM_ZlQ7jCyzagWt3FFh6RONz5sw3edMnjDWQ
+
+# Workspace --------------------------------------------------------------------
+
+## Add new Workspace
+POST http://localhost:8000/api/workspaces/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "DEMO 8",
+    "icon_unified": "icon_1"
+}
+###
+
+## Get all Workspaces
+# **Note**: You can filter by role, for example: owner or member
+GET http://localhost:8000/api/workspaces/?role=owner
+Authorization: Bearer {{token}}
+###
+
+## Delete Workspace
+DELETE http://localhost:8000/api/workspaces/20/
+Authorization: Bearer {{token}}
+###
+
+## Get Workspace by ID
+# GET http://localhost:8000/api/workspaces/14/
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMTQxNTQ0LCJpYXQiOjE3MzMxMjM1NDQsImp0aSI6ImZlNTcyZWRlNzNmODQwYTVhOTNhNzk2YTQ5MzRkNGNkIiwidXNlcl9pZCI6Mn0.s3GV5dyu2yBfNtR6QwvCA3HB7m7cHIZ7-2MFyUPWpL0
+###
+
+## Update Workspace
+PUT http://localhost:8000/api/workspaces/16/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "DEMO 6 Update",
+    "icon_unified": "icon_1"
+}
+###

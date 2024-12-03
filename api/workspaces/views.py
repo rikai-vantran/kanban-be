@@ -5,6 +5,7 @@ from rest_framework import status
 from .serializers import WorkspaceSerializer, GetAllWorkSpaceSerializer
 from drf_yasg.utils import swagger_auto_schema
 from api.models import Workspaces, Profile, WorkspaceMembers
+from api.profiles.serializers import ProfileSerializer
 
 class WorkspaceListView(APIView):
     permission_classes = [IsAuthenticated]
@@ -20,9 +21,17 @@ class WorkspaceListView(APIView):
             )
             profile = Profile.objects.get(user=request.user)
             workspace.members.add(profile, through_defaults={"role": 'owner'})
-            Profile.objects.filter(user=request.user).update(
-                workspace_owner_orders = list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
+            profileSerializer = ProfileSerializer(
+                profile,
+                data = {
+                    'workspace_owner_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
+                },
+                partial=True
             )
+            if not profileSerializer.is_valid():
+                return Response(profileSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            profileSerializer.save()
+
             return Response({
                 "message": "Workspace created successfully",
                 "data": serializer.data

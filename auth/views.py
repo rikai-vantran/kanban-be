@@ -5,7 +5,6 @@ from .serializers import RegisterSerializer
 from rest_framework.permissions import AllowAny
 from drf_yasg.utils import swagger_auto_schema
 
-# Create your views here.
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     @swagger_auto_schema(request_body=RegisterSerializer)
@@ -14,5 +13,8 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             if user:
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response({
+                    "message": "User created successfully",
+                    "data": serializer.data
+                }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

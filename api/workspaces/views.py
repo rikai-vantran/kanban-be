@@ -54,7 +54,7 @@ class WorkspaceListView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class WorkspaceDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     def delete(self, request, workspace_id):
         # Check if the user is the owner of the workspace

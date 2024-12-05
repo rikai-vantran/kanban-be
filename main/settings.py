@@ -185,3 +185,5 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+ALLOWED_HOSTS = ['*']

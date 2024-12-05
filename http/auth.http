@@ -16,3 +16,22 @@ Content-Type: application/json
     "email": "dinhvan0294@gmail.com"
 }
 ###
+
+
+# Account: dinhvan111
+POST http://localhost:8000/auth/login/
+Content-Type: application/json
+
+{
+    "username": "dinhvan111",
+    "password": "123456"
+}
+### 
+POST http://localhost:8000/auth/register/
+Content-Type: application/json
+
+{
+    "username": "dinhvan111",
+    "password": "123456",
+    "email": "dinh111@gmail.com"
+}

@@ -12,7 +12,8 @@
 - [x] Login, Register
 - [x] Create, Update, Delete Workspace
 - [x] Get list Workspace filter `owner`, `member`
-
+- [x] Websocket profile update (workspace_member_orders)
+ 
 ### Database Design
 
 #### Table: `users`

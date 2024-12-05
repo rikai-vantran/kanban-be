@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from dirtyfields import DirtyFieldsMixin
 
 avatar = [
     ('unicorn', 'https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fcool-.png?alt=media&token=b9cb3234-905c-4283-9f80-c496f994a843'),
@@ -14,12 +15,9 @@ avatar = [
     ('weasel', 'https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fweasel.png?alt=media&token=618b152f-ae70-4609-8285-cfd4e220ef88')
 ]
 
-class Profile(models.Model):
+class Profile(models.Model, DirtyFieldsMixin):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=200)
     profile_pic = models.CharField(choices=avatar, default=avatar[0], max_length=200)
     workspace_owner_orders = models.JSONField(default=list, null=True, blank=True)
     workspace_member_orders = models.JSONField(default=list, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.user)

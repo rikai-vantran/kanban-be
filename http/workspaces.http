@@ -1,5 +1,5 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjEwMDc5LCJpYXQiOjE3MzMxOTIwNzksImp0aSI6IjhhYWE3MjhhMTRkNjQzYjdiMDAyZTZjYmVmMDkyNjAwIiwidXNlcl9pZCI6M30.iRPAi5jxM_ZlQ7jCyzagWt3FFh6RONz5sw3edMnjDWQ
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzg0OTMwLCJpYXQiOjE3MzMzNjY5MzAsImp0aSI6ImQ4NTU2NjMzZDg4MjQ1MGI4YmMxMTI1MGFiNGQ2ZmQ3IiwidXNlcl9pZCI6M30.yuTXa_qRpV9V5Xg87eK7CMjyCk7mnoXQ7ESi1OBjJYo
+@token1 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjI3MjQ3LCJpYXQiOjE3MzMyMDkyNDcsImp0aSI6ImE4ZTBiNWZkYTdkYTQ5YmRhZWIyODlkMGIwOGQxNWIwIiwidXNlcl9pZCI6NH0.MlzLbRZu0y273CBs7VzeiKSZfTZ9eBNGWiJI3wlpc08
 # Workspace --------------------------------------------------------------------
 
 ## Add new Workspace
@@ -8,7 +8,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "DEMO 8",
+    "name": "DEMO 1",
     "icon_unified": "icon_1"
 }
 ###
@@ -20,7 +20,7 @@ Authorization: Bearer {{token}}
 ###
 
 ## Delete Workspace
-DELETE http://localhost:8000/api/workspaces/20/
+DELETE http://localhost:8000/api/workspaces/58/
 Authorization: Bearer {{token}}
 ###
 

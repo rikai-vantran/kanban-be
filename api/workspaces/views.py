@@ -6,6 +6,7 @@ from .serializers import WorkspaceSerializer, GetAllWorkSpaceSerializer
 from drf_yasg.utils import swagger_auto_schema
 from api.models import Workspaces, Profile, WorkspaceMembers
 from api.profiles.serializers import ProfileSerializer
+from api.workspaces.permissions import IsOwnerWorkspacePermission
 
 class WorkspaceListView(APIView):
     permission_classes = [IsAuthenticated]
@@ -24,8 +25,7 @@ class WorkspaceListView(APIView):
             profileSerializer = ProfileSerializer(
                 profile,
                 data = {
-                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id],
-                    'workspace_member_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id]
+                    'workspace_owner_orders': list(Profile.objects.get(user=request.user).workspace_owner_orders) + [workspace.id],
                 },
                 partial=True
             )
@@ -41,7 +41,6 @@ class WorkspaceListView(APIView):
     
     def get(self, request):
         role = request.query_params.get('role')
-        print(role)
         profile = Profile.objects.get(user=request.user)
         workspaceMembers = WorkspaceMembers.objects.filter(member=profile)
 
@@ -55,14 +54,9 @@ class WorkspaceListView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class WorkspaceDetailView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerWorkspacePermission]
 
     def delete(self, request, workspace_id):
-        # Check if the user is the owner of the workspace
-        workspaceMembers = WorkspaceMembers.objects.filter(workspace=workspace_id)
-        if not workspaceMembers.filter(role='owner', member__user=request.user).exists():
-            return Response({"error": "You can't delete this workspace"}, status=status.HTTP_403_FORBIDDEN)
-        
         Workspaces.objects.get(id=workspace_id).delete()
         profile = Profile.objects.get(user=request.user)
         profile.workspaces_set.remove(workspace_id)

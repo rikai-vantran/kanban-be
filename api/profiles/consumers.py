@@ -1,10 +1,8 @@
 # chat/consumers.py
 import json
-from asgiref.sync import async_to_sync
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 
-
-class UserConsumer(WebsocketConsumer):
+class UserConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['uid']
         self.room_group_name = f"user_{self.room_name}"
@@ -20,3 +18,12 @@ class UserConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+
+    async def send_new_workspace_members(self, event):
+        workspace_members = event['workspace_members']
+        workspace_member_orders = event['workspace_member_orders']
+        await self.send(text_data=json.dumps({
+            'workspace_members': workspace_members,
+            'workspace_member_orders': workspace_member_orders
+        }))
+        

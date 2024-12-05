@@ -3,7 +3,7 @@ POST http://localhost:8000/auth/login/
 Content-Type: application/json
 
 {
-    "username": "user123456",
+    "username": "dinhvan111",
     "password": "123456"
 }
 ### 
@@ -13,6 +13,25 @@ Content-Type: application/json
 {
     "username": "user123456",
     "password": "123456",
-    "email": "dinh39342@gmail.com"
+    "email": "dinh111@gmail.com"
 }
 ###
+
+
+# Account: dinhvan111
+POST http://localhost:8000/auth/login/
+Content-Type: application/json
+
+{
+    "username": "dinhvan111",
+    "password": "123456"
+}
+### 
+POST http://localhost:8000/auth/register/
+Content-Type: application/json
+
+{
+    "username": "dinhvan111",
+    "password": "123456",
+    "email": "dinh111@gmail.com"
+}

@@ -1,5 +1,4 @@
-# @token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjExNjI2LCJpYXQiOjE3MzMxOTM2MjYsImp0aSI6IjQ2NjQ3MjRmMGI3MTRjODNhODE3ZmE5NDZjZjZhMzBjIiwidXNlcl9pZCI6NH0.VVpI5VnFVc0hz7mDXqejd3oZMR2jPDC0ygikzB4g0Zk
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjE3MjA0LCJpYXQiOjE3MzMxOTkyMDQsImp0aSI6ImRlODI1N2RhMDE5NTRkZDFiMmI2MjIwNDU1YzVjZTNjIiwidXNlcl9pZCI6NX0.RtbTx1PZmDFQecW7kP9DwbxEiAlpfvB6KBG8fdeWAD4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzk5NDc3LCJpYXQiOjE3MzMzODE0NzcsImp0aSI6IjQ5MTJhYzM4MGZlOTRmOGJiN2JkMWYzMzgyZjlmMTk0IiwidXNlcl9pZCI6MX0.KiIzJizfYUjcTE4S7V5ZaejhDSmX2BjWat7b3m9Cqz8
 # Workspace --------------------------------------------------------------------
 
 ## Add new Workspace
@@ -8,7 +7,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Viet workspace",
+    "name": "School",
     "icon_unified": "icon_1"
 }
 ###
@@ -20,7 +19,7 @@ Authorization: Bearer {{token}}
 ###
 
 ## Delete Workspace
-DELETE http://localhost:8000/api/workspaces/6/
+DELETE http://localhost:8000/api/workspaces/1/
 Authorization: Bearer {{token}}
 ###
 
@@ -30,12 +29,12 @@ Authorization: Bearer {{token}}
 ###
 
 ## Update Workspace
-PUT http://localhost:8000/api/workspaces/6/
+PUT http://localhost:8000/api/workspaces/1/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Viet",
+    "name": "Update",
     "icon_unified": "icon_1"
 }
 ###

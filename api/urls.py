@@ -4,5 +4,5 @@ from django.urls import include
 
 urlpatterns = [
     path('workspaces/', include('api.workspaces.urls')),
-    path('kanban_board/', include('api.kanban_board.urls')),
+    path('workspaces/<int:workspace_id>/', include('api.kanban_board.urls')),
 ]

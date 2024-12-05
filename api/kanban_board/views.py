@@ -34,20 +34,20 @@ class ColumnsListView(APIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request):
-        id = request.query_params.get('workspace_id')
-        if Workspaces.objects.filter(id=id).count() == 0:
-            return Response({
-                "error": "Workspace not found"
-            }, status=status.HTTP_404_NOT_FOUND)
+    # def get(self, request):
+    #     id = request.query_params.get('workspace_id')
+    #     if Workspaces.objects.filter(id=id).count() == 0:
+    #         return Response({
+    #             "error": "Workspace not found"
+    #         }, status=status.HTTP_404_NOT_FOUND)
 
-        members = Workspaces.objects.get(id=id).members.all()
-        if not request.user.profile in members:
-            return Response({
-                "error": "You are not a member of this workspace"
-            }, status=status.HTTP_403_FORBIDDEN)
+    #     members = Workspaces.objects.get(id=id).members.all()
+    #     if not request.user.profile in members:
+    #         return Response({
+    #             "error": "You are not a member of this workspace"
+    #         }, status=status.HTTP_403_FORBIDDEN)
 
-        columns = ColumnSerializer(Columns.objects.all().filter(workspace_id
+    #     columns = ColumnSerializer(Columns.objects.all().filter(workspace_id
 
 class ColumnDetailView(APIView):
     permission_classes = [IsAuthenticated]

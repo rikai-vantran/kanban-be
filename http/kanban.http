@@ -1,18 +1,18 @@
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjE3MjA0LCJpYXQiOjE3MzMxOTkyMDQsImp0aSI6ImRlODI1N2RhMDE5NTRkZDFiMmI2MjIwNDU1YzVjZTNjIiwidXNlcl9pZCI6NX0.RtbTx1PZmDFQecW7kP9DwbxEiAlpfvB6KBG8fdeWAD4
-#Column --------------------------------------------------------------------
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzQ4OTIxLCJpYXQiOjE3MzQzMzA5MjEsImp0aSI6IjJkYWRhYzY5ZTI5NTQ0NjJiMWJlMjY3NDFjMTIwOTM1IiwidXNlcl9pZCI6OH0.yb2mQcvbISMf_5pYlKwZj8QXJc2Hkwud5cdPPr-RQ7A
 
 ## Add new Column
 POST http://localhost:8000/api/kanban_board/kanban_column/
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
 {
-    "workspace_id": 8,
-    "name": "Donde"
+    "workspace_id": 10,
+    "name": "Progress"
 }
 ###
 
 ## Get all Columns
-GET http://localhost:8000/api/kanban_board/kanban_column/?workspace_id=9
+GET http://localhost:8000/api/kanban_board/kanban_column/?workspace_id=10
 Authorization: Bearer {{token}}
 ###
 
@@ -41,32 +41,32 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "column_id": 2,
-    "content" : "Card1",
+    "column_id": 8,
+    "content" : "Card3",
     "due_date": "2021-10-10",
     "assign": 6
 }
 ###
 
 ## Get all Cards
-GET http://localhost:8000/api/kanban_board/kanban_card/?column_id=3
+GET http://localhost:8000/api/kanban_board/kanban_card/?column_id=21
 Authorization: Bearer {{token}}
 ###
 
 ## Update Card
 
-PUT http://localhost:8000/api/kanban_board/kanban_card/2/
+PUT http://localhost:8000/api/kanban_board/kanban_card/38/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "content": "Card3 updated",
+    "content": "Car2 updated",
     "due_date": "2021-10-10"
 }
 ###
 
 ## Delete Card
-DELETE http://localhost:8000/api/kanban_board/kanban_card/1/
+DELETE http://localhost:8000/api/kanban_board/kanban_card/2/
 Authorization: Bearer {{token}}
 
 

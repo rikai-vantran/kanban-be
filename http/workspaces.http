@@ -1,6 +1,5 @@
 # @token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjExNjI2LCJpYXQiOjE3MzMxOTM2MjYsImp0aSI6IjQ2NjQ3MjRmMGI3MTRjODNhODE3ZmE5NDZjZjZhMzBjIiwidXNlcl9pZCI6NH0.VVpI5VnFVc0hz7mDXqejd3oZMR2jPDC0ygikzB4g0Zk
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjE3MjA0LCJpYXQiOjE3MzMxOTkyMDQsImp0aSI6ImRlODI1N2RhMDE5NTRkZDFiMmI2MjIwNDU1YzVjZTNjIiwidXNlcl9pZCI6NX0.RtbTx1PZmDFQecW7kP9DwbxEiAlpfvB6KBG8fdeWAD4
-# Workspace --------------------------------------------------------------------
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzQ4OTIxLCJpYXQiOjE3MzQzMzA5MjEsImp0aSI6IjJkYWRhYzY5ZTI5NTQ0NjJiMWJlMjY3NDFjMTIwOTM1IiwidXNlcl9pZCI6OH0.yb2mQcvbISMf_5pYlKwZj8QXJc2Hkwud5cdPPr-RQ7A
 
 ## Add new Workspace
 POST http://localhost:8000/api/workspaces/
@@ -8,7 +7,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Viet workspace",
+    "name": "viet7 new1",
     "icon_unified": "icon_1"
 }
 ###

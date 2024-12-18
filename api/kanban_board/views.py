@@ -10,24 +10,25 @@ from api.workspaces.models import Workspaces
 class ColumnsListView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def check_owner(self, workspace_id, user):
-        workspace = Workspaces.objects.get(id=workspace_id)
-        return workspace.owner == user
-
     @swagger_auto_schema(request_body=ColumnSerializer)
     def post(self, request):
-        if not self.check_owner(request.data['workspace_id'], request.user):
+        if Workspaces.objects.filter(id=request.data['workspace_id']).count() == 0:
             return Response({
-                "error": "You are not the owner of this workspace"
-            }, status=status.HTTP_403_FORBIDDEN)
+                "error": "Workspace not found"
+            }, status=status.HTTP_404_NOT_FOUND)
 
         serializer = ColumnSerializer(data=request.data)
         if serializer.is_valid():
             Columns.objects.create(
                 workspace_id=Workspaces.objects.get(id=request.data['workspace_id']),
                 name=serializer.validated_data['name'],
-                card_orders='[]'
+                card_orders=[]
             )
+            # add column to workspace order
+            workspace = Workspaces.objects.get(id=request.data['workspace_id'])
+            id_col = Columns.objects.last().id
+            workspace.column_orders.append(id_col)
+            workspace.save()
             return Response({
                 "message": "Column created successfully",
                 "data": serializer.data
@@ -46,8 +47,8 @@ class ColumnsListView(APIView):
             return Response({
                 "error": "You are not a member of this workspace"
             }, status=status.HTTP_403_FORBIDDEN)
-
-        columns = ColumnSerializer(Columns.objects.all().filter(workspace_id
+        columns = ColumnSerializer(Columns.objects.all().filter(workspace_id=id), many=True)
+        return Response(columns.data, status=status.HTTP_200_OK)
 
 class ColumnDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -64,7 +65,6 @@ class ColumnDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, column_id):
-
         if Columns.objects.filter(id=column_id).count() == 0:
             return Response({
                 "error": "Column not found"
@@ -73,17 +73,70 @@ class ColumnDetailView(APIView):
             return Response({
                 "error": "You are not a member of this workspace"
             }, status=status.HTTP_403_FORBIDDEN)
+        workspace = Columns.objects.get(id=column_id).workspace_id
+        workspace.column_orders.remove(column_id)
+        workspace.save()
         Columns.objects.get(id=column_id).delete()
+        ## delete column from workspace order
+
         return Response({
             "message": "Column deleted successfully"
         }, status=status.HTTP_204_NO_CONTENT)
 
+class UpdateCardOrder(APIView):
+    def put(self, request, *args, **kwargs):
+        over_column_id = request.data.get('over_column_id')
+        active_card_id = (request.data.get('active_card_id'))
+        card_orders = request.data.get('card_orders', [])
+        #change Idcol of card to over column
+        card = Cards.objects.get(id=active_card_id)
+        card.column_id = Columns.objects.get(id=over_column_id)
+        card.save()
+
+        #get all column
+        all_columns = Columns.objects.all()
+        #delete card order in column
+        for column in all_columns:
+            idCardOrder = column.card_orders
+            for id in idCardOrder:
+                if id == active_card_id:
+                    column.card_orders.remove(id)
+                    column.save()
+        over_colum = Columns.objects.get(id=over_column_id)
+        over_colum.card_orders = card_orders
+        over_colum.save()
+        return Response({
+            "message": "Card order updated successfully"
+        }, status=status.HTTP_200_OK)
+
+class UpdateCardToNewColumn(APIView):
+    def put(self, request, *args, **kwargs):
+        over_column_id = request.data.get('over_column_id')
+        active_card_id = (request.data.get('active_card_id'))
+        #change Idcol of card to over column
+        card = Cards.objects.get(id=active_card_id)
+        card.column_id = Columns.objects.get(id=over_column_id)
+        card.save()
+
+        #get all column
+        all_columns = Columns.objects.all()
+        #delete card order in column
+        for column in all_columns:
+            idCardOrder = column.card_orders
+            for id in idCardOrder:
+                if id == active_card_id:
+                    column.card_orders.remove(id)
+                    column.save()
+        over_colum = Columns.objects.get(id=over_column_id)
+        over_colum.card_orders.append(active_card_id)
+        over_colum.save()
+        return Response({
+            "message": "Card order updated successfully"
+        }, status=status.HTTP_200_OK)
 
 class CardsListView(APIView):
     permission_classes = [IsAuthenticated]
-
     @swagger_auto_schema(request_body=CardSerializer)
-
     def post(self, request):
         serializer = CardSerializer(data = request.data)
         if serializer.is_valid():
@@ -93,10 +146,12 @@ class CardsListView(APIView):
                 due_date = serializer.validated_data['due_date'],
                 assign = serializer.validated_data['assign']
             )
-            return Response({
-                "message": "Card created successfully",
-                "data": serializer.data
-            }, status=status.HTTP_201_CREATED)
+            # add card to column order
+            column = Columns.objects.get(id=request.data['column_id'])
+            id_card = Cards.objects.last().id
+            column.card_orders.append(id_card)
+            column.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
@@ -110,12 +165,8 @@ class CardsListView(APIView):
             return Response({
                 "error": "You are not a member of this workspace"
             }, status=status.HTTP_403_FORBIDDEN)
-
-
         cards = CardSerializer(Cards.objects.all().filter(column_id=id), many=True)
-        return Response({
-            "data": cards.data
-        }, status=status.HTTP_200_OK)
+        return Response(cards.data, status=status.HTTP_200_OK)
 
 class CardsDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -142,6 +193,9 @@ class CardsDetailView(APIView):
             return Response({
                 "error": "You are not a member of this workspace"
             }, status=status.HTTP_403_FORBIDDEN)
+        column = Cards.objects.get(id=card_id).column_id
+        column.card_orders.remove(card_id)
+        column.save()
         Cards.objects.get(id=card_id).delete()
         return Response({
             "message": "Card deleted successfully"

@@ -17,7 +17,7 @@ class WorkspaceListView(APIView):
             workspace = Workspaces.objects.create(
                 name = serializer.validated_data['name'],
                 icon_unified = serializer.validated_data['icon_unified'],
-                column_orders = '[]'
+                column_orders = []
             )
             profile = Profile.objects.get(user=request.user)
             workspace.members.add(profile, through_defaults={"role": 'owner'})
@@ -53,8 +53,36 @@ class WorkspaceListView(APIView):
         serializer = GetAllWorkSpaceSerializer(workspaceMembers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ColumnUpdateOrder(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, workspace_id):
+        if Workspaces.objects.filter(id=workspace_id).count() == 0:
+            return Response({
+                "error": "Workspace not found"
+            }, status=status.HTTP_404_NOT_FOUND)
+        if Workspaces.objects.get(id=workspace_id).members.filter(user=request.user).count() == 0:
+            return Response({
+                "error": "You are not a member of this workspace"
+            }, status=status.HTTP_403_FORBIDDEN)
+        workspace = Workspaces.objects.get(id=workspace_id)
+        workspace.column_orders = request.data['column_orders']
+        workspace.save()
+        return Response({
+            "message": "Column order updated successfully"
+        }, status=status.HTTP_200_OK)
+
+
 class WorkspaceDetailView(APIView):
     permission_classes = [IsAuthenticated]
+    def get(self, request, workspace_id):
+        try:
+            workspace = Workspaces.objects.get(id=workspace_id)
+        except Workspaces.DoesNotExist:
+            return Response({"error": "Workspace not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = WorkspaceSerializer(workspace)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, workspace_id):
         # Check if the user is the owner of the workspace
@@ -86,3 +114,4 @@ class WorkspaceDetailView(APIView):
                 "data": serializer.data
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

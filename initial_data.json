@@ -1,0 +1,226 @@
+[
+    {
+        "model": "api.UserAvatar",
+        "pk": 1,
+        "fields": {
+            "name": "weasel",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fweasel.png?alt=media&token=618b152f-ae70-4609-8285-cfd4e220ef88"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 2,
+        "fields": {
+            "name": "sloth",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fsloth.png?alt=media&token=10e76c72-0d65-467c-86c6-4b71e82eb29e"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 3,
+        "fields": {
+            "name": "shark",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fshark.png?alt=media&token=ffe4a990-3efd-46a3-a021-8a8017cfa7a8"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 4,
+        "fields": {
+            "name": "puffer fish",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fpuffer-fish.png?alt=media&token=5c003012-b4e0-459e-81ed-0930917f0545"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 5,
+        "fields": {
+            "name": "lion",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Flion.png?alt=media&token=03011157-39a6-47a5-a03b-ab1be10263d3"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 6,
+        "fields": {
+            "name": "hippopotamus",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fhippopotamus.png?alt=media&token=627a1a4b-4551-41f5-93e9-96c6467ca752"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 7,
+        "fields": {
+            "name": "giraffe",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fgiraffe.png?alt=media&token=ccfd663a-0903-48f8-bdb0-35f425667f90"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 8,
+        "fields": {
+            "name": "duck",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fduck.png?alt=media&token=33c6a5dc-aa7b-470b-8d9f-5f38b6dfc233"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 9,
+        "fields": {
+            "name": "dragon",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2Fdragon.png?alt=media&token=da996e1e-29d5-45d6-884b-47a848f4293e"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 10,
+        "fields": {
+            "name": "owl",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F107.c3e123902d831a9.jpg?alt=media&token=364ef243-1f29-44f9-b79f-779a03d51a6d"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 11,
+        "fields": {
+            "name": "rabbit",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F108.3b3090077134db3.jpg?alt=media&token=8c14a5c0-fbdf-4205-a9ac-c9497c08b2a2"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 12,
+        "fields": {
+            "name": "penguins",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F109.5b75ca8158c771c.jpg?alt=media&token=6cb45843-d445-4d8b-b314-301bbf807259"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 13,
+        "fields": {
+            "name": "fish",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F110.36d90f6882d4593.jpg?alt=media&token=6d366b5f-e2fd-4006-8daf-7a59f273885e"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 14,
+        "fields": {
+            "name": "mouse",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F111.f9dd73353feb908.jpg?alt=media&token=b852e940-ca1d-4614-844d-470c7099774f"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 15,
+        "fields": {
+            "name": "porcupine",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F112.c90135dfc341a90.jpg?alt=media&token=a1898ce3-1179-44c0-beeb-670aaee6c651"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 16,
+        "fields": {
+            "name": "cat",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F113.e4b7e1c4ed27afa.jpg?alt=media&token=697f11b3-27aa-44c9-bb0e-4c462f6c8426"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 17,
+        "fields": {
+            "name": "octopus",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F114.0adc064c9a6d1eb.jpg?alt=media&token=9939f465-29da-4d20-a811-32498241e9b6"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 18,
+        "fields": {
+            "name": "jack97",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F115.70946d9217589e8.jpg?alt=media&token=1ca69ad0-f2c2-4562-b50f-22d44b771434"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 19,
+        "fields": {
+            "name": "crane",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F1.jpg?alt=media&token=38f7e927-084b-4ec1-a44e-60b00350060c"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 20,
+        "fields": {
+            "name": "panda",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F2.jpg?alt=media&token=26ebee1a-113e-4d0f-b900-e1868eab06f4"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 21,
+        "fields": {
+            "name": "eagle bird",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F3.jpg?alt=media&token=2fcb3e40-e61c-462d-8646-44cd197748d7"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 22,
+        "fields": {
+            "name": "seal",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F4.jpg?alt=media&token=ce1e3e82-bce4-473e-bb8c-7fe72bc9226f"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 23,
+        "fields": {
+            "name": "chimp",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F5.jpg?alt=media&token=7ec17214-77dc-457e-a6bb-3a76feb40634"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 24,
+        "fields": {
+            "name": "giraffe",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F6.jpg?alt=media&token=53bcbad9-b6fa-4ccb-960d-2810652e88e0"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 25,
+        "fields": {
+            "name": "bear",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F7.jpg?alt=media&token=9b73c9d1-218c-4869-a4d0-4d2e8d9cc608"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 26,
+        "fields": {
+            "name": "giraffe spotty",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F8.jpg?alt=media&token=85bf5614-686f-4f75-a4d9-aba323662e28"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 27,
+        "fields": {
+            "name": "mtp",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F9.jpg?alt=media&token=c275da1c-994f-4237-81de-1f6635d3d2e2"
+        }
+    },
+    {
+        "model": "api.UserAvatar",
+        "pk": 28,
+        "fields": {
+            "name": "nezuko",
+            "avatar": "https://firebasestorage.googleapis.com/v0/b/plantsnap-419307.appspot.com/o/kanban%2F10.jpg?alt=media&token=b42f7873-3674-498a-bc26-0477b7bed268"
+        }
+    }
+]

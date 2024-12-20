@@ -20,14 +20,14 @@ class Cards(models.Model):
 
 
 task_status = [
-    ('todo', 'To Do'),
-    ('progress', 'In Progress'),
+    ('in progress', 'In Progress'),
     ('done', 'Done'),
 ]
 class Tasks(models.Model):
-    card = models.ForeignKey(Cards, on_delete=models.CASCADE)
     content = models.CharField(max_length=256)
-    status = models.CharField(max_length=256, default='todo')
+    status = models.CharField(max_length=256, choices=task_status)
+    card = models.ForeignKey(Cards, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.title

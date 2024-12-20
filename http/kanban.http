@@ -1,4 +1,4 @@
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzQ4OTIxLCJpYXQiOjE3MzQzMzA5MjEsImp0aSI6IjJkYWRhYzY5ZTI5NTQ0NjJiMWJlMjY3NDFjMTIwOTM1IiwidXNlcl9pZCI6OH0.yb2mQcvbISMf_5pYlKwZj8QXJc2Hkwud5cdPPr-RQ7A
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NzA2MTA0LCJpYXQiOjE3MzQ2ODgxMDQsImp0aSI6IjIxNzc3YmQ0YmRlMzQwNzI5YzEyNjQxYWQ3NjYxZjNjIiwidXNlcl9pZCI6OH0.6qQoTpP7wMe9LukcTLMhuaWN1jW0yh6DckOeIxK_A7w
 
 ## Add new Column
 POST http://localhost:8000/api/kanban_board/kanban_column/
@@ -12,7 +12,7 @@ Authorization: Bearer {{token}}
 ###
 
 ## Get all Columns
-GET http://localhost:8000/api/kanban_board/kanban_column/?workspace_id=10
+GET http://localhost:8000/api/workspaces/columns/?workspace_id=18
 Authorization: Bearer {{token}}
 ###
 

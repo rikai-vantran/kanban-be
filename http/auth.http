@@ -1,37 +1,255 @@
-# Login and Register ----------------------------------------------------------
+#uid 1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTE4MjM2LCJpYXQiOjE3MzQ1MDAyMzYsImp0aSI6IjdiNjQ2OGQyNDgwZjRmY2RiMzM4NjgzODRlMWQxNTEwIiwidXNlcl9pZCI6MX0.iulJPElQb5Y5Fz6j8wKsf7I2AhU1dbVWLJ5iJu9Cjcs
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTE4MjUxLCJpYXQiOjE3MzQ1MDAyNTEsImp0aSI6Ijk3MGI0YzEzMjY1ZjRiODc5MGY4MzU3ZTJjNTU1ZmY5IiwidXNlcl9pZCI6Mn0.5jismpLy3lLPf4wsWjg24PCIPKC5ew7b1QNFJf-5g0Y
 POST http://localhost:8000/auth/login/
 Content-Type: application/json
 
 {
-    "username": "dinhvan111",
-    "password": "dinhvan2310"
-}
-###
-POST http://localhost:8000/auth/register/
-Content-Type: application/json
-
-{
-    "username": "dinhvan111",
-    "password": "dinhvan2310",
-    "email": "dinhvan0294@gmail.com"
-}
-###
-
-
-# Account: dinhvan111
-POST http://localhost:8000/auth/login/
-Content-Type: application/json
-
-{
-    "username": "dinhvan111",
+    "username": "dinhvan23100",
     "password": "123456"
 }
-### 
+###
+
+# Refresh Token 
+POST http://localhost:8000/auth/refresh/
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNTA1MDIzNSwiaWF0IjoxNzMzNzU0MjM1LCJqdGkiOiIzMmYwNDc0YTExY2Y0NWQ3YWExOTVlOGQzOGVjMTI4YyIsInVzZXJfaWQiOjF9.Kgdr5RknIgz7CbWZSYxa21KEUuHmCoMMT2-CzUOTZCo"
+}
+###
+
+# Register
 POST http://localhost:8000/auth/register/
 Content-Type: application/json
 
 {
-    "username": "dinhvan111",
+    "username": "dinhvan23100",
     "password": "123456",
-    "email": "dinh111@gmail.com"
+    "email": "dinhvan23100@gmail.com"
 }
+###
+
+# "username": "dinhvan",
+# "password": "123456"
+
+# "username": "dinhvan23100",
+# "password": "123456",
+
+
+
+# -------------------- Workspace ----------------------
+# ------------------------------------------------------
+## Add new Workspace
+POST http://localhost:8000/api/workspaces/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "UID 1",
+    "icon_unified": "1f4bb"
+}
+###
+
+## Get all Workspaces
+# **Note**: You can filter by role, for example: owner or member
+GET http://localhost:8000/api/workspaces/?role=owner
+Authorization: Bearer {{token}}
+###
+
+## Delete Workspace
+DELETE http://localhost:8000/api/workspaces/2/owner/
+Authorization: Bearer {{token}}
+###
+
+## Get Workspace by ID
+GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/
+Authorization: Bearer {{token}}
+###
+
+## Update Workspace
+PUT http://localhost:8000/api/workspaces/12/owner/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Update",
+    "icon_unified": "1f4bb",
+    "column_orders": [23,24,25]
+}
+###
+
+# Current user leave workspace
+DELETE http://localhost:8000/api/workspaces/3/members/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Get all request peding of the workspace
+GET http://localhost:8000/api/workspaces/3/requests/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# --------------------- Profile ------------------------
+# ------------------------------------------------------
+# Get all Avatar default
+GET http://localhost:8000/api/profiles/avatars
+Content-Type: application/json
+###
+
+# Get profile of the current user
+GET http://localhost:8000/api/profiles/me/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Update profile of the current user
+PUT http://localhost:8000/api/profiles/me/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Trần",
+    "profile_pic": 1
+}
+###
+# Get profiles of the users filtered by email
+GET http://localhost:8000/api/profiles/?email=dinh
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Get profile of the user with id
+GET http://localhost:8000/api/profiles/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Update workspace owner order 
+PUT http://localhost:8000/api/profiles/workspace-owner-orders/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "workspace_owner_orders": [],
+    "workspace_member_orders": []
+}
+###
+
+# --------------------- Notification ------------------------
+# ------------------------------------------------------
+
+# Create a new request
+POST http://localhost:8000/api/notifications/requests/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "user_receiver": "2",
+    "workspace": 2
+}
+### 
+
+# Get all requests for a user
+GET http://localhost:8000/api/notifications/requests/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Accept or reject a request for a user
+PUT http://localhost:8000/api/notifications/requests/2/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "status": "accepted"
+}
+###
+
+# Delete a request for a user
+DELETE http://localhost:8000/api/notifications/requests/1/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# --------------------- Columns --------------------------
+# --------------------------------------------------------
+# Create a new column
+POST http://localhost:8000/api/workspaces/1/columns/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Column 1"
+}
+###
+
+# Get all columns of a workspace
+GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Update a column of a workspace
+# card_orders: array of card id (optional)
+PUT http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/c96da1b1-0e1c-422a-96b0-07cdafd131ef/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Column 1 Update",
+    "card_orders": ["1", "2"]
+}
+###
+
+# Delete a column of a workspace
+DELETE http://localhost:8000/api/workspaces/12/columns/12/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# --------------------- Cards ----------------------------
+# --------------------------------------------------------
+# Create a new card
+POST http://localhost:8000/api/workspaces/1/columns/1/cards/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Card 1",
+    "description": "Description",
+    "due_date": "2021-10-10"
+}
+###
+
+# Get all cards of a column
+GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/7af91ef2-358b-445e-84bf-1f212dee3db4/cards/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Update a card of a column
+PUT http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/9c86a9c6-ff2b-4045-ab51-03f79fed7869/cards/4c860898-087f-468e-bced-d8a67b44f141/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "To do",
+    "description": "Description Update",
+    "due_date": "2021-10-10",
+    "column": "9c86a9c6-ff2b-4045-ab51-03f79fed7869"
+}
+###
+
+# Delete a card of a column
+DELETE http://localhost:8000/api/workspaces/1/columns/9/cards/1/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Get all cards of a workspace
+GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/cards/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###

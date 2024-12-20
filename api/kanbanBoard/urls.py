@@ -4,7 +4,9 @@ from . import views
 
 urlpatterns = [
     path('columns/', views.ColumnsListView.as_view(), name='columns'),
-    path('columns/<int:column_id>/', views.ColumnDetailView.as_view(), name='column-detail'),
-    path('cards/', views.CardsListView.as_view(), name='cards'),
-    path('cards/<int:card_id>/', views.CardsDetailView.as_view(), name='card-detail'),
+    path('columns/<str:column_id>/', views.ColumnDetailView.as_view(), name='column-detail'),
+    path('columns/<str:column_id>/cards/', views.CardListView.as_view(), name='cards'),
+    path('columns/<str:column_id>/cards/<str:card_id>/', views.CardDetailView.as_view(), name='card-detail'),
+
+    path('cards/', views.CardWorkspaceListView.as_view(), name='cards-workspace'),
 ]

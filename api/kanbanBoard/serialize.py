@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from api.kanban_board.models import Columns
-from api.kanban_board.models import Cards
-from api.kanban_board.models import Tasks
+from api.kanbanBoard.models import Columns
+from api.kanbanBoard.models import Cards
+from api.profiles.serializers import ProfileSerializer
 
 class ColumnSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,11 +9,7 @@ class ColumnSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CardSerializer(serializers.ModelSerializer):
+    assigns = ProfileSerializer(many=True, read_only=True)
     class Meta:
         model = Cards
-        fields = '__all__'
-
-class TaskSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tasks
         fields = '__all__'

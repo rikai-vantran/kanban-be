@@ -1,19 +1,7 @@
-### List Task
-- [] Get Workspace Detail
-- [] Websocket Column, Card, Task
+### Feature
 
-- [] Notification
-- [] Request
-
-- [] Profile update (name, profile_pic)
-- [] Profile change workspace order 
-
-### List Task Done
-- [x] Login, Register
-- [x] Create, Update, Delete Workspace
-- [x] Get list Workspace filter `owner`, `member`
-- [x] Websocket profile update (workspace_member_orders)
- 
+#### 1. User
+- [x] `Sign up`, `sign in`, `sign out` with email and password
 ### Database Design
 
 #### Table: `users`
@@ -119,3 +107,6 @@
 | workspace_id | integer | not null, foreign key (references workspaces) | # Workspace liên quan 
 | status       | string('pending', 'accepted', 'rejected') | not null |
 | created_at   | datetime  | not null | 
+
+
+###

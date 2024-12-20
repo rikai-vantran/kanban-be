@@ -56,8 +56,41 @@ class WorkspaceListView(APIView):
         serializer = WorkspaceInfoSerializer(workspaces, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+<<<<<<< HEAD
 class WorkspaceOwnerDetailView(APIView):
     permission_classes = [IsAuthenticated, IsOwnerWorkspacePermission]
+=======
+class ColumnUpdateOrder(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, workspace_id):
+        if Workspaces.objects.filter(id=workspace_id).count() == 0:
+            return Response({
+                "error": "Workspace not found"
+            }, status=status.HTTP_404_NOT_FOUND)
+        if Workspaces.objects.get(id=workspace_id).members.filter(user=request.user).count() == 0:
+            return Response({
+                "error": "You are not a member of this workspace"
+            }, status=status.HTTP_403_FORBIDDEN)
+        workspace = Workspaces.objects.get(id=workspace_id)
+        workspace.column_orders = request.data['column_orders']
+        workspace.save()
+        return Response({
+            "message": "Column order updated successfully"
+        }, status=status.HTTP_200_OK)
+
+
+class WorkspaceDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, workspace_id):
+        try:
+            workspace = Workspaces.objects.get(id=workspace_id)
+        except Workspaces.DoesNotExist:
+            return Response({"error": "Workspace not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = WorkspaceSerializer(workspace)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+>>>>>>> 993905910bf4da7ea3c7444cc1aa66e4c2b9d795
 
     # Delete a workspace by id
     def delete(self, request, workspace_id):
@@ -88,6 +121,7 @@ class WorkspaceOwnerDetailView(APIView):
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+<<<<<<< HEAD
 class WorkspaceDetailView(APIView):
     permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
 
@@ -124,3 +158,5 @@ class WorkspaceRequestListView(APIView):
         requests = Request.objects.filter(workspace_id=workspace_id, status='pending')
         serializer = RequestSerializer(requests, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+=======
+>>>>>>> 993905910bf4da7ea3c7444cc1aa66e4c2b9d795

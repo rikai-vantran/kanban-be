@@ -46,15 +46,17 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework',
     'api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -85,7 +87,7 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
+#         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'kanban',
 #         'USER': 'root',
 #         'PASSWORD': 'dinhvan111',
@@ -187,9 +189,3 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
-ALLOWED_HOSTS = ['*']
-
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-]

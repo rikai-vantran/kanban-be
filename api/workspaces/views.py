@@ -79,7 +79,7 @@ class WorkspaceOwnerDetailView(APIView):
     # Update a workspace by id
     def put(self, request, workspace_id):
         workspace = Workspaces.objects.get(id=workspace_id)
-        serializer = WorkspaceSerializer(workspace, data=request.data)
+        serializer = WorkspaceSerializer(workspace, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response({

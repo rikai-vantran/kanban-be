@@ -1,11 +1,11 @@
 #uid 1
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTE4MjM2LCJpYXQiOjE3MzQ1MDAyMzYsImp0aSI6IjdiNjQ2OGQyNDgwZjRmY2RiMzM4NjgzODRlMWQxNTEwIiwidXNlcl9pZCI6MX0.iulJPElQb5Y5Fz6j8wKsf7I2AhU1dbVWLJ5iJu9Cjcs
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0OTM3ODY4LCJpYXQiOjE3MzQ5MTk4NjgsImp0aSI6IjQ2MjBmNmZkNDdiMzRjZDQ4NTgxMjA3OTM4NjY4NDJmIiwidXNlcl9pZCI6MX0.zDDDqiJ6bQy-NXy3mSLhSDf2Hf7eRQD_HORD0DFebMY
 # @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTE4MjUxLCJpYXQiOjE3MzQ1MDAyNTEsImp0aSI6Ijk3MGI0YzEzMjY1ZjRiODc5MGY4MzU3ZTJjNTU1ZmY5IiwidXNlcl9pZCI6Mn0.5jismpLy3lLPf4wsWjg24PCIPKC5ew7b1QNFJf-5g0Y
 POST http://localhost:8000/auth/login/
 Content-Type: application/json
 
 {
-    "username": "dinhvan23100",
+    "username": "dinhvan",
     "password": "123456"
 }
 ###
@@ -175,8 +175,9 @@ Authorization: Bearer {{token}}
 
 # --------------------- Columns --------------------------
 # --------------------------------------------------------
+@workspace_id = 93ea4df3-2ac3-419f-ba35-0c96ce5f65d6
 # Create a new column
-POST http://localhost:8000/api/workspaces/1/columns/
+POST http://localhost:8000/api/workspaces/{{workspace_id}}/columns/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -186,7 +187,7 @@ Authorization: Bearer {{token}}
 ###
 
 # Get all columns of a workspace
-GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/
+GET http://localhost:8000/api/workspaces/{{workspace_id}}/columns/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ###
@@ -211,35 +212,37 @@ Authorization: Bearer {{token}}
 
 # --------------------- Cards ----------------------------
 # --------------------------------------------------------
+@workspace_id = 93ea4df3-2ac3-419f-ba35-0c96ce5f65d6
+@column_id = 950823ab-a5c4-41ef-a5f2-0127e44fd1b6
 # Create a new card
-POST http://localhost:8000/api/workspaces/1/columns/1/cards/
+POST http://localhost:8000/api/workspaces/{{workspace_id}}/columns/{{column_id}}/cards/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Card 1",
+    "name": "Card 5",
     "description": "Description",
-    "due_date": "2021-10-10"
+    "due_date": "2021-10-10",
+    "assigns": []
 }
 ###
 
 # Get all cards of a column
-GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/7af91ef2-358b-445e-84bf-1f212dee3db4/cards/
+GET http://localhost:8000/api/workspaces/{{workspace_id}}/columns/{{column_id}}/cards/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ###
 
 # Update a card of a column
-PUT http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/columns/9c86a9c6-ff2b-4045-ab51-03f79fed7869/cards/4c860898-087f-468e-bced-d8a67b44f141/
+PUT http://localhost:8000/api/workspaces/{{workspace_id}}/columns/{{column_id}}/cards/f58186f9-14ca-4047-9725-49ddf5a6fb6e/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
     "name": "To do",
     "description": "Description Update",
-    "due_date": "2021-10-10",
-    "column": "9c86a9c6-ff2b-4045-ab51-03f79fed7869"
-}
+    "due_date": "2021-10-10"
+}   
 ###
 
 # Delete a card of a column
@@ -249,7 +252,7 @@ Authorization: Bearer {{token}}
 ###
 
 # Get all cards of a workspace
-GET http://localhost:8000/api/workspaces/f233243a-78e8-44b2-941f-5ecd311101bd/cards/
+GET http://localhost:8000/api/workspaces/{{workspace_id}}/cards/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ###

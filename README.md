@@ -1,5 +1,9 @@
 ### Feature
 
+- [x] di chuyen the giua cac column
+- [x] tao, xoa cot
+- [x] tao, xoa the
+
 #### 1. User
 - [x] `Sign up`, `sign in`, `sign out` with email and password
 ### Database Design
@@ -104,9 +108,9 @@
 |-------------|-----------|---------|
 | id          | integer   | not null, primary key |
 | user_receive_id | integer | not null, foreign key (references profile) | # User nhận request
-| workspace_id | integer | not null, foreign key (references workspaces) | # Workspace liên quan 
+| workspace_id | integer | not null, foreign key (references workspaces) | # Workspace liên quan
 | status       | string('pending', 'accepted', 'rejected') | not null |
-| created_at   | datetime  | not null | 
+| created_at   | datetime  | not null |
 
 
 ###

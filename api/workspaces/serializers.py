@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Workspaces, Profile
+from api.models import Workspaces, Profile, WorkspaceLogs
 from api.profiles.serializers import ProfileInfoSerializer
 
 class WorkspaceInfoSerializer(serializers.ModelSerializer):
@@ -33,3 +33,8 @@ class AddMembersSerializer(serializers.Serializer):
             if not Profile.objects.filter(user_id=id).exists():
                 raise serializers.ValidationError('User does not exist')
         return value
+
+class WorkspaceLogsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkspaceLogs
+        fields = '__all__'

@@ -4,11 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import WorkspaceSerializer, WorkspaceInfoSerializer
 from drf_yasg.utils import swagger_auto_schema
-from api.models import Workspaces, Profile
+from api.models import Workspaces, Profile, WorkspaceLogs
 from api.profiles.serializers import ProfileWorkspaceSerializer
 from api.workspaces.permissions import IsOwnerWorkspacePermission, IsOwnerOrMemberWorkspacePermission, IsMemberWorkspacePermission
 from api.models import Request
 from api.notifications.serializers import RequestSerializer
+from api.workspaces.models import WorkspaceLogs, WorkspaceLogs
+from api.workspaces.serializers import WorkspaceLogsSerializer
 
 class WorkspaceListView(APIView):
     permission_classes = [IsAuthenticated]
@@ -34,6 +36,11 @@ class WorkspaceListView(APIView):
                     'workspace_owner_orders': [workspace.id] + list(profile.workspace_owner_orders)
                 },
                 partial=True
+            )
+            #create workspace log
+            workspace_log = WorkspaceLogs.objects.create(
+                workspace=workspace,
+                log=f'{request.user.username} created the workspace\n'
             )
             if profileSerializer.is_valid():
                 profileSerializer.save()
@@ -123,4 +130,19 @@ class WorkspaceRequestListView(APIView):
     def get(self, request, workspace_id):
         requests = Request.objects.filter(workspace_id=workspace_id, status='pending')
         serializer = RequestSerializer(requests, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class WorkspaceLogsView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
+
+    # get all logs of a workspace
+    def get(self, request, workspace_id):
+        # workspace = Workspaces.objects.get(id=workspace_id)
+        # logs = WorkspaceLogs.objects.filter(workspace=workspace)
+        # logs = [log.log for log in logs]
+        # return Response(logs, status=status.HTTP_200_OK)
+        workspace = Workspaces.objects.get(id=workspace_id)
+        logs = WorkspaceLogs.objects.filter(workspace=workspace)
+        serializer = WorkspaceLogsSerializer(logs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

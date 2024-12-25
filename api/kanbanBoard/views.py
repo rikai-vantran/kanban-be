@@ -8,6 +8,7 @@ from api.kanbanBoard.models import Columns
 from api.workspaces.permissions import IsOwnerOrMemberWorkspacePermission
 from api.workspaces.models import Workspaces
 from rest_framework.parsers import MultiPartParser, FormParser
+from api.workspaces.models import WorkspaceLogs
 
 
 class ColumnsListView(APIView):
@@ -24,6 +25,12 @@ class ColumnsListView(APIView):
             workspace = Workspaces.objects.get(id=workspace_id)
             workspace.column_orders.append(serializer.data['id'])
             workspace.save()
+            # log column creation
+            WorkspaceLogs.objects.create(
+                workspace_id=workspace_id,
+                log='Column ' + serializer.data['name'] + ' created by ' + request.user.username
+            )
+
             return Response({
                 "message": "Column created successfully",
                 "data": serializer.data
@@ -74,6 +81,11 @@ class ColumnDetailView(APIView):
         workspace = Workspaces.objects.get(id=workspace_id)
         workspace.column_orders.remove(column_id)
         workspace.save()
+        # log column deletion
+        WorkspaceLogs.objects.create(
+            workspace_id=workspace_id,
+            log='Column ' + column.name + ' deleted by ' + request.user.username
+        )
         return Response({
             "message": "Column deleted successfully"
         }, status=status.HTTP_200_OK)
@@ -91,13 +103,19 @@ class CardListView(APIView):
                 "error": "Column not found"
             }, status=status.HTTP_404_NOT_FOUND)
         request.data['column'] = column_id
-        serializer = CardSerializer(data=request.data)
+        serializer = CardSerializer(data=request.data, context={'workspace_id': workspace_id})
+
         if serializer.is_valid():
             serializer.save()
             # update card_orders in column
             column = Columns.objects.get(id=column_id)
             column.card_orders.append(serializer.data['id'])
             column.save()
+            # log card creation
+            WorkspaceLogs.objects.create(
+                workspace_id=workspace_id,
+                log='Card ' + serializer.data['name'] + ' created by ' + request.user.username
+            )
             return Response({
                 "message": "Card created successfully",
                 "data": serializer.data
@@ -136,8 +154,16 @@ class CardDetailView(APIView):
         if not request.data.get('column'):
             request.data['column'] = column_id
         serializer = CardSerializer(card, data=request.data, partial=True, context={'workspace_id': workspace_id})
+        activeCol = Columns.objects.get(id=column_id)
+        overCol = Columns.objects.get(id=request.data['column'])
         if serializer.is_valid():
             serializer.save()
+            #log card movement
+            if activeCol != overCol:
+                WorkspaceLogs.objects.create(
+                    workspace_id=workspace_id,
+                    log='Card ' + serializer.data['name'] + ' moved from ' + activeCol.name + ' to ' + overCol.name + ' by ' + request.user.username
+                )
             return Response({
                 "message": "Card updated successfully",
                 "data": serializer.data
@@ -163,6 +189,11 @@ class CardDetailView(APIView):
         column = Columns.objects.get(id=column_id)
         column.card_orders.remove(card_id)
         column.save()
+        # log card deletion
+        WorkspaceLogs.objects.create(
+            workspace_id=workspace_id,
+            log='Card ' + card.name + ' deleted by ' + request.user.username
+        )
         return Response({
             "message": "Card deleted successfully"
         }, status=status.HTTP_200_OK)

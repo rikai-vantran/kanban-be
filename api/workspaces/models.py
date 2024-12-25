@@ -30,6 +30,6 @@ class WorkspaceMembers(models.Model):
 
 class WorkspaceLogs(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    workspace = models.ForeignKey(Workspaces, on_delete=models.CASCADE)
+    workspace= models.ForeignKey(Workspaces, on_delete=models.CASCADE)
     log = models.TextField(blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,5 @@
 #uid 1
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0OTM3ODY4LCJpYXQiOjE3MzQ5MTk4NjgsImp0aSI6IjQ2MjBmNmZkNDdiMzRjZDQ4NTgxMjA3OTM4NjY4NDJmIiwidXNlcl9pZCI6MX0.zDDDqiJ6bQy-NXy3mSLhSDf2Hf7eRQD_HORD0DFebMY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0OTU2OTc5LCJpYXQiOjE3MzQ5Mzg5NzksImp0aSI6IjMwMDRjY2NiZGQxMzQzZjZhYmRlMTE2NjA4MTE1MjM3IiwidXNlcl9pZCI6MX0.SEC3cp4UnQ_igoDonS6CFlXYPlVf943MKuWsDCFJVh0
 # @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NTE4MjUxLCJpYXQiOjE3MzQ1MDAyNTEsImp0aSI6Ijk3MGI0YzEzMjY1ZjRiODc5MGY4MzU3ZTJjNTU1ZmY5IiwidXNlcl9pZCI6Mn0.5jismpLy3lLPf4wsWjg24PCIPKC5ew7b1QNFJf-5g0Y
 POST http://localhost:8000/auth/login/
 Content-Type: application/json
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 ###
 
-# Refresh Token 
+# Refresh Token
 POST http://localhost:8000/auth/refresh/
 Content-Type: application/json
 
@@ -24,9 +24,9 @@ POST http://localhost:8000/auth/register/
 Content-Type: application/json
 
 {
-    "username": "dinhvan23100",
+    "username": "dinhvan",
     "password": "123456",
-    "email": "dinhvan23100@gmail.com"
+    "email": "dinhvan@gmail.com"
 }
 ###
 
@@ -126,7 +126,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 ###
 
-# Update workspace owner order 
+# Update workspace owner order
 PUT http://localhost:8000/api/profiles/workspace-owner-orders/
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -149,7 +149,7 @@ Authorization: Bearer {{token}}
     "user_receiver": "2",
     "workspace": 2
 }
-### 
+###
 
 # Get all requests for a user
 GET http://localhost:8000/api/notifications/requests/
@@ -242,7 +242,7 @@ Authorization: Bearer {{token}}
     "name": "To do",
     "description": "Description Update",
     "due_date": "2021-10-10"
-}   
+}
 ###
 
 # Delete a card of a column

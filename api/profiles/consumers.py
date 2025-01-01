@@ -18,14 +18,6 @@ class UserConsumer(AsyncWebsocketConsumer):
                 self.channel_name
             )
             await self.accept()
-
-            profile = await Profile.objects.aget(user=user)
-            workspaces = Workspaces.objects.filter(members=profile)
-            serializer = WorkspaceSerializer(workspaces, many=True)
-            await self.send(text_data=json.dumps({
-                'workspace_members': await sync_to_async(lambda: serializer.data)(),
-                'workspace_member_orders': profile.workspace_member_orders,
-            }))
     
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(

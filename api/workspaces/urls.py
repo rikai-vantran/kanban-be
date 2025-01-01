@@ -7,4 +7,6 @@ urlpatterns = [
     path('<str:workspace_id>/', views.WorkspaceDetailView.as_view(), name='workspace-detail'),
     path('<str:workspace_id>/members/', views.WorkspaceMemberListView.as_view(), name='workspace-members'),
     path('<str:workspace_id>/requests/', views.WorkspaceRequestListView.as_view(), name='workspace-requests'),
+    path('<str:workspace_id>/labels/', views.WorkspaceLabelListView.as_view(), name='workspace-labels'),
+    path('<str:workspace_id>/labels/<int:label_id>/', views.WorkspaceLabelDetailView.as_view(), name='workspace-label'),
 ]

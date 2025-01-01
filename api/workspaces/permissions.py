@@ -20,6 +20,7 @@ class IsMemberWorkspacePermission(permissions.BasePermission):
 class IsOwnerOrMemberWorkspacePermission(permissions.BasePermission):
     def has_permission(self, request, view):
         workspace_id = request.parser_context['kwargs']['workspace_id']
+        print('workspace_id', workspace_id)
         if not WorkspaceMembers.objects.filter(workspace_id=workspace_id, member__user=request.user).exists():
             return False
         return True

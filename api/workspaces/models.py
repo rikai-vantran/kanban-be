@@ -15,6 +15,14 @@ class Workspaces(models.Model):
     def __str__(self):
         return self.name
 
+class WorkspaceLabels(models.Model):
+    workspace = models.ForeignKey(Workspaces, on_delete=models.CASCADE, related_name='labels_set')
+    name = models.CharField(max_length=64)
+    color = models.CharField(max_length=7)
+
+    def __str__(self):
+        return self.name
+
 class WorkspaceMembers(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     member = models.ForeignKey(Profile, on_delete=models.CASCADE)

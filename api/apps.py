@@ -7,3 +7,5 @@ class ApiConfig(AppConfig):
 
     def ready(self):
         import api.profiles.signals
+        import api.workspaces.signals
+        import api.kanbanBoard.signals

@@ -1,8 +1,60 @@
 ### Feature
 
-#### 1. User
-- [x] `Sign up`, `sign in`, `sign out` with email and password
+#### Automation 
+
+> **Note**: Automation có tác dụng giúp tự động hóa các công việc. Automation là một chuỗi các command. Mỗi command sẽ thực hiện một công việc nhất định.
+
+`command-type`: `CREATE`, `MOVE`, `DELETE`
+
+`command`: 
+
+Mỗi command sẽ có một cấu trúc nhất định tuỳ theo `command-type`
+
+> ex: CREATE:`name`:`due_date`:`assignee_id` 
+
+> ex: MOVE:`$card_id`:`^column_id`:`$^column_id`
+
+**Chi tiết các command**:
+-   `CREATE`: Tạo một card mới
+    
+    > ex: CREATE:`name`:`short_desc`:`due_date`:`assignee_id`:`column_id`
+
+    -   `name`: Tên của card
+    -   `short_desc`: Mô tả ngắn gọn của card
+    -   `due_date`: Ngày hết hạn của card
+    -   `assignee_id`: ID của người được giao việc
+    -   `column_id`: ID của column mà card sẽ được tạo
+
+-   `MOVE`: Di chuyển card từ column này sang column khác
+
+    > ex: MOVE:`$card_id`:`^column_id`:`$^column_id`
+
+    -   `$card_id`: ID của card
+    -   `^column_id`: ID của column mà card sẽ được di chuyển
+
+-   `DELETE`: Xóa card
+
+    > ex: DELETE:`$card_id`
+
+    -   `$card_id`: ID của card
+
+**Chaining command**: Các command sẽ được nối với nhau bằng dấu `;`
+
+> ex: CREATE:`name`:`short_desc`:`due_date`:`assignee_id`:`column_id`;MOVE:`$card_id`:`^column_id`:`$^column_id`;DELETE:`$card_id`
+
+
 ### Database Design
+
+#### Table: `Automation`
+
+| Column Name | Data Type | Details |
+|-------------|-----------|---------|
+| id          | integer   | not null, primary key |
+| workspace_id| integer   | not null, foreign key (references workspaces) |
+| name        | string    | not null |
+| command-type| string    | not null | # 'CREATE', 'MOVE', 'DELETE'
+| command     | string    | not null |
+| created_at  | datetime  | not null |
 
 #### Table: `users`
 

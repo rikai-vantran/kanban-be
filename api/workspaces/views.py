@@ -2,9 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import WorkspaceSerializer, WorkspaceInfoSerializer, WorkspaceLabelSerializer
+from .serializers import WorkspaceSerializer, WorkspaceInfoSerializer, WorkspaceLabelSerializer, WorkspaceLogsSerializer
 from drf_yasg.utils import swagger_auto_schema
-from api.models import Workspaces, Profile
+from api.models import Workspaces, Profile, WorkspaceLogs
 from api.workspaces.permissions import IsOwnerWorkspacePermission, IsOwnerOrMemberWorkspacePermission, IsMemberWorkspacePermission
 from api.models import Request, WorkspaceLabels
 from api.notifications.serializers import RequestSerializer
@@ -31,6 +31,9 @@ class WorkspaceListView(APIView):
             # update workspace_owner_orders of the owner
             profile.workspace_owner_orders.append(str(workspace.id))
             profile.save()
+
+            #create workspace logs
+            WorkspaceLogs.objects.create(workspace=workspace, log=f"{profile.user.email} created the workspace", type='create')
 
             return Response({
                 "message": "Workspace created successfully",
@@ -112,7 +115,7 @@ class WorkspaceMemberListView(APIView):
             profile.save()
             return Response({"message": "You have left the workspace"}, status=status.HTTP_200_OK)
         return Response({"error": "You can't leave the workspace because you are the owner"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
 class WorkspaceLabelListView(APIView):
     permission_classes = [IsAuthenticated, IsOwnerWorkspacePermission]
 
@@ -152,3 +155,67 @@ class WorkspaceRequestListView(APIView):
         requests = Request.objects.filter(workspace_id=workspace_id, status='pending')
         serializer = RequestSerializer(requests, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class WorkSpaceLogsView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
+
+    # get all logs of a workspace
+    def get(self, request, workspace_id):
+        logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id)
+        print(workspace_id, "logs")
+        serializer = WorkspaceLogsSerializer(logs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class WorkSpaceLogsFilterView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
+
+    # get all logs of a workspace
+    def get(self, request, workspace_id):
+        type = request.query_params.get('type')
+        logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type=type)
+        serializer = WorkspaceLogsSerializer(logs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class WorkSpaceLogsPaginationView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
+
+    # get all logs of a workspace
+    def get(self, request, workspace_id):
+        curent_page = int(request.query_params.get('page_current'))
+        limit = int(request.query_params.get('limit'))
+        type = request.query_params.get('type')
+        logs = []
+        size = 0
+        if type == 'all':
+            size = WorkspaceLogs.objects.filter(workspace_id=workspace_id).count()
+            logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id)[(curent_page-1)*limit:curent_page*limit]
+        if type == 'create':
+            size = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='create').count()
+            logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='create')[(curent_page-1)*limit:curent_page*limit]
+        if type == 'delete':
+            size = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='delete').count()
+            logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='delete')[(curent_page-1)*limit:curent_page*limit]
+        if type == 'move':
+            size = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='move').count()
+            logs = WorkspaceLogs.objects.filter(workspace_id=workspace_id, type='move')[(curent_page-1)*limit:curent_page*limit]
+
+        serializer = WorkspaceLogsSerializer(logs, many=True)
+        return Response({
+            "data": serializer.data,
+            "size": size
+        }, status=status.HTTP_200_OK)
+
+class WorkspaceLogsFilterByDateView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrMemberWorkspacePermission]
+
+    # get all logs of a workspace
+    def get(self, request, workspace_id):
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        workspace = Workspaces.objects.get(id=workspace_id)
+        logs = WorkspaceLogs.objects.filter(workspace=workspace, create_at__range=[start_date, end_date])
+        serializer = WorkspaceLogsSerializer(logs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+

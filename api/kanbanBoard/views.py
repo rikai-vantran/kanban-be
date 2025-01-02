@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from api.kanbanBoard.models import Columns, Tasks
 from api.workspaces.permissions import IsOwnerOrMemberWorkspacePermission
-from api.workspaces.models import Workspaces
+from api.workspaces.models import Workspaces, WorkspaceLogs
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view
 from api.kanbanBoard.models import Cards
@@ -27,6 +27,8 @@ class ColumnsListView(APIView):
             workspace = Workspaces.objects.get(id=workspace_id)
             workspace.column_orders.append(serializer.data['id'])
             workspace.save()
+            # logs create column
+            WorkspaceLogs.objects.create(workspace=workspace, log=f"{request.user.email} created the column {serializer.data['name']}", type='create')
             return Response({
                 "message": "Column created successfully",
                 "data": serializer.data
@@ -77,6 +79,9 @@ class ColumnDetailView(APIView):
         workspace = Workspaces.objects.get(id=workspace_id)
         workspace.column_orders.remove(column_id)
         workspace.save()
+        # logs delete column
+        WorkspaceLogs.objects.create(workspace=workspace, log=f"{request.user.email} deleted the column {column.name}", type='delete')
+
         return Response({
             "message": "Column deleted successfully"
         }, status=status.HTTP_200_OK)
@@ -102,6 +107,8 @@ class CardListView(APIView):
             column = Columns.objects.get(id=column_id)
             column.card_orders.append(serializer.data['id'])
             column.save()
+            # logs create card
+            WorkspaceLogs.objects.create(workspace=column.workspace, log=f"{request.user.email} created the card {serializer.data['name']}", type='create')
             return Response({
                 "message": "Card created successfully",
                 "data": serializer.data
@@ -182,6 +189,8 @@ class CardDetailView(APIView):
         column = Columns.objects.get(id=column_id)
         column.card_orders.remove(card_id)
         column.save()
+        # logs delete card
+        WorkspaceLogs.objects.create(workspace=column.workspace, log=f"{request.user.email} deleted the card {card.name}", type='delete')
         return Response({
             "message": "Card deleted successfully"
         }, status=status.HTTP_200_OK)
@@ -257,6 +266,8 @@ class MoveCardCrossColumnView(APIView):
             )
             if (next_serializer.is_valid()):
                 next_serializer.save()
+            # logs move card
+            WorkspaceLogs.objects.create(workspace=card.column.workspace, log=f"{request.user.email} moved the card {card.name} from {card.column.name} to {Columns.objects.get(id=next_column_id).name}", type='move')
 
             return Response({
                 "message": "Card moved successfully"

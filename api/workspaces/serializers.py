@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Workspaces, Profile
+from api.models import Workspaces, Profile, WorkspaceLogs
 from api.profiles.serializers import ProfileInfoSerializer
 from api.models import WorkspaceLabels
 
@@ -51,4 +51,9 @@ class AddMembersSerializer(serializers.Serializer):
 class WorkspaceLabelSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkspaceLabels
+        fields = '__all__'
+
+class WorkspaceLogsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkspaceLogs
         fields = '__all__'
